@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 class BookShelf extends Component {
   render (){
+    console.log(this.props.bookList);
     return (
       <div className="list-books">
         <div className="list-books-title">
