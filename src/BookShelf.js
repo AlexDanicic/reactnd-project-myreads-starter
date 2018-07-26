@@ -1,5 +1,6 @@
 import React, { Component} from 'react'
 import Books from './Books';
+import { Link } from 'react-router-dom'
 
 class BookShelf extends Component {
   render (){
@@ -16,10 +17,18 @@ class BookShelf extends Component {
               <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  <li>
-                    <Books/>
-                  </li>
-
+                 {this.props.bookList.filter(
+                   book => book.shelf === 'currentlyReading').map(
+                     book => (
+                       <li key={book.id}>
+                        <Books 
+                          book={ book}
+                          organiseBooks={this.props.organiseBooks}
+                          shelf='currentlyReading'
+                        />
+                       </li>
+                     )
+                   )}
                 </ol>
               </div>
             </div>
@@ -28,9 +37,17 @@ class BookShelf extends Component {
               <h2 className="bookshelf-title">Want to Read</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  <li>
-                    <Books/>
-                  </li>
+                  {this.props.bookList.filter(
+                    book => book.shelf === 'wantToRead').map(book => (
+                      <li key={book.id}>
+                        <Books 
+                          book={book}
+                          organiseBooks={this.props.organiseBooks}
+                          shelf='wantToRead'
+                        />
+                      </li>
+                    )                    
+                  )}
                 </ol>
               </div>
             </div>
@@ -39,16 +56,24 @@ class BookShelf extends Component {
               <h2 className="bookshelf-title">Read</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  <li>
-                    <Books/>
-                  </li>
+                  {this.props.bookList.filter(
+                    book => book.shelf === 'read'
+                  ).map(book=> (
+                    <li key={book.id}>
+                      <Books 
+                        book={book}
+                        organiseBooks={this.props.organiseBooks}
+                        shelf = 'read'
+                      />
+                    </li>
+                  ))}
                 </ol>
               </div>
             </div>
           </div>
         </div>
         <div className="open-search">
-          <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+          <Link to='/search'>Add a book</Link>
         </div>
       </div>
     );
